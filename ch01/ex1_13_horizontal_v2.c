@@ -1,5 +1,5 @@
 /* Exercise 1-13. Write a program to print a histogram of the lengths of words
- * in its input. (vertical version)
+ * in its input. (horizontal version)
  */
 
 
@@ -44,31 +44,17 @@ int main(void)
         total += lengths[i];
     }
 
-    int Y_AXIS = max < 30 ? max : 30;
-    for (int i = Y_AXIS; i > 0; --i)
-    {
-        printf("%4i|", (int) round((float) i / Y_AXIS * max));
-        for (int j = 0; j < LEN; ++j)
-        {
-            int height = round((float) lengths[j] / max * Y_AXIS);
-            int color = 41 + round((float) lengths[j] / max * 5);
-            printf("  ");
-            if (height >= i)
-                printf("\033[%im \033[0m", color);
-            else
-                putchar(' ');
-        }
-        putchar('\n');
-    }
-
-    printf("    +");
-    for (int i = 0; i < LEN * 3; ++i)
-        putchar('-');
-    putchar('\n');
-    printf("     ");
+    int X_AXIS = max < 50 ? max : 50;
     for (int i = 0; i < LEN; ++i)
-        printf(" %2i", i + 1);
-    putchar('\n');
+    {
+        printf("%2i|", i + 1);
+        int width = round((float) lengths[i] / max * X_AXIS);
+        int color = 41 + round((float) lengths[i] / max * 5);
+        for (int j = 0; j < width; ++j)
+            printf("\033[%im \033[0m", color);
+        printf("%4i\n", lengths[i]);
+    }
+    printf("max: %li, total: %li\n", max, total);
 
     return 0;
 }

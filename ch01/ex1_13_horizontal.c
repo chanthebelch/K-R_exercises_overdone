@@ -49,9 +49,9 @@ int main(void)
     {
         printf("%2i|", i + 1);
         int width = round((float) lengths[i] / max * X_AXIS);
+        int color = 31 + round((float) lengths[i] / max * 5);
         for (int j = 0; j < width; ++j)
-            printf("\033[%im▇\033[0m",
-                    31 + (int) (((float) lengths[i] / max) * 5));
+            printf("\033[%im▇\033[0m", color);
         printf("%4i\n", lengths[i]);
     }
     printf("max: %li, total: %li\n", max, total);
